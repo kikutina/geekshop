@@ -1,23 +1,26 @@
-{% load static  %}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    {% block title %} {% endblock %}
-    <!--<title>GeekShop</title>->
+
+
+    {% block title %}        {% endblock %}
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-   {% block css %}{% endblock %}
-
+    <!-- Custom styles for this template -->
+    {% block css %}{% endblock %}
 </head>
+
 <body>
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -29,23 +32,32 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'products' %}">Каталог</a>
+                    <a class="nav-link" href="{% url 'products:index' %}">Каталог <i
+                            class="fas fa-shopping-bag"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Войти <i class="fas fa-sign-in-alt"></i></a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user.first_name }} <i
+                                class="fas fa-user-circle"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authapp:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-{% block content %} {% endblock %}
+<!-- Content -->
+{% block content %}{% endblock %}
 
-{% block footer %} {% endblock %}
-{% block products %} {% endblock %}
+<!-- Footer -->
+{% block footer %}{% endblock %}
 
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
