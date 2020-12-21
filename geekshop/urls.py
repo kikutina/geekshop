@@ -16,6 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('test_context/', mainapp_views.test_context),
     path('auth/', include('authapp.urls',  namespace='auth')),
+    path('baskets/', include('basketapp.urls',  namespace='baskets')),
 
     ]
 

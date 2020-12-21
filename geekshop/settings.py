@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'authapp',
+    'basketapp',
 ]
 
 MIDDLEWARE = [
@@ -133,5 +134,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'authapp.ShopUser'
+
+AVATAR_STORAGE_DIR = 'media/user_avatar'
 
 
