@@ -137,4 +137,6 @@ AUTH_USER_MODEL = 'authapp.ShopUser'
 
 AVATAR_STORAGE_DIR = 'media/user_avatar'
 
+LOGIN_URL = '/auth/login/'
+
 

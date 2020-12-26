@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django.core.exceptions import ValidationError
-from django.forms import forms
+from django import forms
 
 from authapp.models import ShopUser
 
@@ -21,6 +21,7 @@ class ShopUserLoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
+
     class Meta:
         model = ShopUser
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'age', 'avatar')
@@ -51,6 +52,7 @@ class UserRegisterForm(UserCreationForm):
        #     return data
 
 class UserProfileForm(UserChangeForm):
+    avatar = forms.ImageField(widget=forms.FileInput())
     class Meta:
         model = ShopUser
         fields = ('first_name', 'last_name', 'avatar', 'username', 'email', 'password')
@@ -58,11 +60,13 @@ class UserProfileForm(UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['readonly'] = True
-        self.fields['email'].widget.attrs['readonly'] = True
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
             field.help_text = ''
+        self.fields['username'].widget.attrs['readonly'] = True
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['avatar'].widget.attrs['class'] = "custom-file-input"
+
 
 
 
